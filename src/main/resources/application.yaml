@@ -4,5 +4,6 @@ notion:
   token: ${NOTION_TOKEN}
 channel:
   urls:
-    discord: ${DISCORD_CHANNEL_URL}
-    other: https://future.use.io/fake/channel-id
+    DISCORD: ${DISCORD_CHANNEL_URL}
+    OTHER: https://future.use.io/fake/channel-id
+#    NEW: https://not-yet-supported/connector

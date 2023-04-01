@@ -4,22 +4,25 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 @Service
 @Log4j2
 public class PostService {
 
-    private ChannelProperties channelProperties;
+    private final Map<String, SocialNetworkConnector> pepAdapterMap;
 
     @Autowired
-    public PostService(ChannelProperties channelProperties) {
-        this.channelProperties = channelProperties;
+    public PostService(Map<String, SocialNetworkConnector> pepAdapterMap) {
+        this.pepAdapterMap = pepAdapterMap;
     }
 
-    public void publishPost() {
-        log.info("Publish to: {}", channelProperties.getChannels());
-//        channelProperties.getChannels().forEach(
-//                channel -> channel.
-//        );
+    public boolean publishPost(List<String> messages) {
+        log.info("Publish {} messages to: {}", messages.size(), pepAdapterMap.keySet());
+        String msg = messages.get(0);
+        pepAdapterMap.values().stream().forEach(connector -> connector.publish(msg));
+        return true;
     }
 
 
