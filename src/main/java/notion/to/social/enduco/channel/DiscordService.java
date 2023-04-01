@@ -6,21 +6,18 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Log4j2
-public class PostService {
+public class DiscordService implements SocialNetworkConnector {
 
     private ChannelProperties channelProperties;
 
     @Autowired
-    public PostService(ChannelProperties channelProperties) {
+    public DiscordService(ChannelProperties channelProperties) {
         this.channelProperties = channelProperties;
     }
 
-    public void publishPost() {
-        log.info("Publish to: {}", channelProperties.getChannels());
-//        channelProperties.getChannels().forEach(
-//                channel -> channel.
-//        );
+    @Override
+    public boolean publish(String message) {
+        return true;
     }
-
 
 }
