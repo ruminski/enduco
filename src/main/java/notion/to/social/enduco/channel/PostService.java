@@ -4,7 +4,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Map;
 
 @Service
@@ -18,10 +17,9 @@ public class PostService {
         this.pepAdapterMap = pepAdapterMap;
     }
 
-    public boolean publishPost(List<String> messages) {
-        log.info("Publish {} messages to: {}", messages.size(), pepAdapterMap.keySet());
-        String msg = messages.get(0);
-        pepAdapterMap.values().stream().forEach(connector -> connector.publish(msg));
+    public boolean publishPosts() {
+        log.info("Publish posts to: {}", pepAdapterMap.keySet());
+        pepAdapterMap.values().forEach(SocialNetworkConnector::publish);
         return true;
     }
 

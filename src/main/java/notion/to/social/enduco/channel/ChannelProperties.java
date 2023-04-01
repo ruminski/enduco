@@ -7,7 +7,6 @@ import notion.to.social.enduco.configuration.InvalidConfigurationException;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
-import javax.naming.ConfigurationException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
@@ -23,13 +22,14 @@ public class ChannelProperties {
     @PostConstruct
     private void validateConfiguration() {
         try {
-            urls.keySet().stream().forEach(ConnectorType::valueOf);
+            urls.keySet().forEach(ConnectorType::valueOf);
         } catch (IllegalArgumentException e) {
             handleConfigException("Invalid 'channel:urls' configuration - connector type. " + e.getMessage());
         }
 
-        urls.values().stream().forEach(url -> {
+        urls.values().forEach(url -> {
             try {
+                //noinspection deprecation
                 new URL(url);
             } catch (MalformedURLException e) {
                 handleConfigException("Invalid 'channel.urls' configuration - URL. " + url);

@@ -1,7 +1,8 @@
-package notion.to.social.enduco.channel;
+package notion.to.social.enduco.channel.other;
 
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
+import notion.to.social.enduco.channel.ConnectorType;
+import notion.to.social.enduco.channel.SocialNetworkConnector;
 import org.springframework.stereotype.Service;
 
 @Service("OTHER")
@@ -9,9 +10,8 @@ import org.springframework.stereotype.Service;
 public class OtherService implements SocialNetworkConnector {
 
     @Override
-    public boolean publish(String message) {
+    public void publish() {
         log.trace("Sent to {} publisher", ConnectorType.OTHER.name());
-        return true;
     }
 
 }
