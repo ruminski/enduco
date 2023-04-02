@@ -1,4 +1,4 @@
-package notion.to.social.enduco.notion;
+package notion.to.social.enduco.error;
 
 public class RemoteCallException extends RuntimeException {
 

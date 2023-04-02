@@ -9,8 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-import java.util.List;
-
 @Component
 @Log4j2
 public class DiscordPublisher {
@@ -27,12 +25,11 @@ public class DiscordPublisher {
     }
 
     @Transactional
-    public boolean publish(PostEntity post, String url) {
+    public void publish(PostEntity post, String url) {
         post.setStatus(PostStatus.POSTED);
         repository.save(post);
-        String emptyDiscordResp = postToDiscord(post, url);
-        log.info("Successfully posted to Discord: {}, response: ", post, emptyDiscordResp);
-        return true;
+        String discordResp = postToDiscord(post, url);
+        log.info("Successfully posted to Discord: {}, response: {}", post, discordResp);
     }
 
     private String postToDiscord(PostEntity post, String url) {

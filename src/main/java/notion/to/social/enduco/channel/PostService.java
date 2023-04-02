@@ -17,10 +17,9 @@ public class PostService {
         this.pepAdapterMap = pepAdapterMap;
     }
 
-    public boolean publishPosts() {
+    public void publishPosts() {
         log.info("Publish posts to: {}", pepAdapterMap.keySet());
         pepAdapterMap.values().forEach(SocialNetworkConnector::publish);
-        return true;
     }
 
 

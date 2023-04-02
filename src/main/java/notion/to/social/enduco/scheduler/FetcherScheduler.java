@@ -1,7 +1,6 @@
 package notion.to.social.enduco.scheduler;
 
 import lombok.extern.log4j.Log4j2;
-import notion.to.social.enduco.channel.PostService;
 import notion.to.social.enduco.notion.NotionFetcherService;
 import notion.to.social.enduco.notion.Post;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,8 @@ public class FetcherScheduler {
 
     @Scheduled(fixedDelay = 60, timeUnit = TimeUnit.SECONDS)
     public void execute() {
-        notionService.fetchScheduledPosts();
+        List<Post> posts = notionService.fetchScheduledPosts();
+        log.info("Fetched {} posts from Notion.", posts.size());
     }
 
 }

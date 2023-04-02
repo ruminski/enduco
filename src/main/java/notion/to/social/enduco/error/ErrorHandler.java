@@ -1,7 +1,6 @@
 package notion.to.social.enduco.error;
 
 import lombok.extern.log4j.Log4j2;
-import notion.to.social.enduco.notion.RemoteCallException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import reactor.core.publisher.Mono;

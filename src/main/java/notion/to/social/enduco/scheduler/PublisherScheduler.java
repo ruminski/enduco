@@ -21,10 +21,7 @@ public class PublisherScheduler {
 
     @Scheduled(fixedDelay = 3, initialDelay = 2, timeUnit = TimeUnit.SECONDS)
     public void execute() {
-        boolean isSuccess = postService.publishPosts();
-        if(!isSuccess) {
-            log.error("Not all messages were successfully sent to all connectors");
-        }
+        postService.publishPosts();
     }
 
 }
