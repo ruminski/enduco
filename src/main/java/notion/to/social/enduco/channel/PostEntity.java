@@ -17,18 +17,13 @@ public class PostEntity {
     @EqualsAndHashCode.Exclude
     private String id;
 
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime creationTime;
-
     private String content;
-
-    @Enumerated(EnumType.STRING)
     private PostStatus status;
-
-    @Enumerated(EnumType.STRING)
     private ConnectorType channel;
-    public static PostEntity toEntity(Post post) {
-        return PostEntity.builder()
+
+    public static PostEntity from(Post post) {
+        return builder()
                 .id(post.getId())
                 .creationTime(post.getCreatedTime())
                 .content(post.getContent())
