@@ -1,6 +1,7 @@
 package notion.to.social.enduco.channel;
 
 import jakarta.annotation.PostConstruct;
+import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 import notion.to.social.enduco.configuration.InvalidConfigurationException;
@@ -14,36 +15,31 @@ import java.util.Map;
 @Log4j2
 @Configuration
 @ConfigurationProperties("channel")
+@Getter
 @Setter
 public class ChannelProperties {
 
     private Map<String, String> urls;
 
     @PostConstruct
-    private void validateConfiguration() {
-        try {
-            urls.keySet().forEach(ConnectorType::valueOf);
-        } catch (IllegalArgumentException e) {
-            handleConfigException("Invalid 'channel:urls' configuration - connector type. " + e.getMessage());
-        }
+    void validateConfiguration() {
+        urls.keySet().forEach(ConnectorType::valueOf);
 
         urls.values().forEach(url -> {
             try {
-                //noinspection deprecation
                 new URL(url);
             } catch (MalformedURLException e) {
                 handleConfigException("Invalid 'channel.urls' configuration - URL. " + url);
             }
         });
+    }
 
+    public String getChannelUrl(String channelName) {
+        return urls.getOrDefault(channelName, "");
     }
 
     private static void handleConfigException(String message) {
         log.error(message);
         throw new InvalidConfigurationException(message);
-    }
-
-    public String getChannelUrl(String channelName) {
-        return urls.getOrDefault(channelName, "");
     }
 }
